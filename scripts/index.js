@@ -8,26 +8,27 @@ let deleteCardBtnList = document.querySelectorAll(".card__delete-button");
 
 // @todo: DOM узлы
 
+// @todo: Функция удаления карточки
+const deleteCard = (e) => {
+  e.preventDefault();
+  e.target.closest("li").remove();
+};
+
 // @todo: Функция создания карточки
-const createCard = (el) => {
+const createCard = (el, handleDelete) => {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate
     .querySelector(".places__item")
     .cloneNode(true);
 
   const deleteCardBtn = cardElement.querySelector(".card__delete-button");
-  deleteCardBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.target.closest("li").remove();
-  });
+  deleteCardBtn.addEventListener("click", handleDelete);
 
   cardElement.querySelector(".card__image").src = el.link;
   cardElement.querySelector(".card__description").textContent = el.name;
-  cardElement.querySelector(".card__description").alt = el.name;
+  cardElement.querySelector(".card__image").alt = el.name;
   return cardElement;
 };
-
-// @todo: Функция удаления карточки
 
 // @todo: Вывести карточки на страницу
 
@@ -76,10 +77,8 @@ addPlaceBtn.addEventListener("click", function (e) {
     link: placeLink.value,
   };
 
-  const cardElement = createCard(cardObj);
+  const cardElement = createCard(cardObj, deleteCard);
   placesContainer.append(cardElement);
   closePopUpNewCard();
   render();
 });
-
-// https://unsplash.com/photos/a-bird-flying-in-the-sky-with-a-sunset-in-the-background-7lzw_-bE7LA
