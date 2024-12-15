@@ -34,6 +34,12 @@ const createCard = (el) => {
     .querySelector(".places__item")
     .cloneNode(true);
 
+  const deleteCardBtn = cardElement.querySelector(".card__delete-button");
+  deleteCardBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.target.closest("li").remove();
+  });
+
   cardElement.querySelector(".card__image").src = el.link;
   cardElement.querySelector(".card__description").textContent = el.name;
   return cardElement;

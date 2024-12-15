@@ -15,8 +15,15 @@ const createCard = (el) => {
     .querySelector(".places__item")
     .cloneNode(true);
 
+  const deleteCardBtn = cardElement.querySelector(".card__delete-button");
+  deleteCardBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.target.closest("li").remove();
+  });
+
   cardElement.querySelector(".card__image").src = el.link;
   cardElement.querySelector(".card__description").textContent = el.name;
+  cardElement.querySelector(".card__description").alt = el.name;
   return cardElement;
 };
 
@@ -73,16 +80,6 @@ addPlaceBtn.addEventListener("click", function (e) {
   placesContainer.append(cardElement);
   closePopUpNewCard();
   render();
-});
-
-deleteCardBtn.addEventListener("mouseover", function (e) {
-  const placeListItems = placesContainer.querySelectorAll("li");
-
-  placeListItems.forEach((el, index) => {
-    el.addEventListener("click", function (e) {
-      e.target.closest("li").remove();
-    });
-  });
 });
 
 // https://unsplash.com/photos/a-bird-flying-in-the-sky-with-a-sunset-in-the-background-7lzw_-bE7LA
