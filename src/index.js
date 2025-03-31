@@ -1,7 +1,8 @@
 import "./index.css";
 
 import { openModal, closeModal } from "./components/modals";
-import { createCard, loadInitial } from "./components/card";
+import { createCard, deleteCard } from "./components/card";
+import { initialCards } from "./components/cards";
 
 const placesSection = document.querySelector(".places");
 const placesContainer = placesSection.querySelector(".places__list");
@@ -9,7 +10,7 @@ const newPlaceForm = document.forms["new-place"];
 const placeName = newPlaceForm.elements["place-name"];
 const placeLink = newPlaceForm.elements.link;
 
-let placeListItems = placesContainer.querySelectorAll("li");
+const placeListItems = placesContainer.querySelectorAll("li");
 const placeListItemsArray = Array.from(placeListItems);
 let deleteCardBtn = document.querySelector(".card__delete-button");
 let deleteCardBtnList = document.querySelectorAll(".card__delete-button");
@@ -35,10 +36,10 @@ const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
 // Profile Form DOM
-const formElement = document.forms["edit-profile"];
-const nameInput = formElement.elements.name;
-const jobInput = formElement.elements.description;
-const profileFormSubmitButton = formElement.querySelector(".popup__button");
+const editProfileForm = document.forms["edit-profile"];
+const nameInput = editProfileForm.elements.name;
+const jobInput = editProfileForm.elements.description;
+const profileFormSubmitButton = editProfileForm.querySelector(".popup__button");
 
 // Image DOM
 const popupImage = document.querySelector(".popup_type_image");
@@ -48,7 +49,7 @@ const popupImageContent = popupImage.querySelector(".popup__image");
 const popupImageCloseBtn = popupImage.querySelector(".popup__close");
 
 // FORM EDITING PROFILE
-function handleFormSubmit(evt) {
+function editProfileFormSubmit(evt) {
   evt.preventDefault();
   // Получите значение полей jobInput и nameInput из свойства value
   const nameInputValue = nameInput.value;
@@ -61,7 +62,7 @@ function handleFormSubmit(evt) {
 
   closePopUpEditProfile();
 }
-formElement.addEventListener("submit", handleFormSubmit);
+editProfileForm.addEventListener("submit", editProfileFormSubmit);
 
 const showPopUpEditProfile = () => {
   nameInput.value = profileName.textContent;
@@ -89,12 +90,6 @@ const zoomImage = ({ name, link }) => {
   popupImageCaption.textContent = name;
 
   openModal(popupImage);
-};
-
-// @todo: Функция удаления карточки
-const deleteCard = (e) => {
-  e.preventDefault();
-  e.target.closest("li").remove();
 };
 
 const likeCard = (e) => {
@@ -142,5 +137,13 @@ newPlaceForm.addEventListener("submit", handleNewCardFormSubmit);
 
 newCardBtn.addEventListener("click", showPopUpNewCard);
 newCardCloseBtn.addEventListener("click", closePopUpNewCard);
+
+// LOADS INITIAL CARDS
+const loadInitial = (deleteCard, likeCard, zoomImage) => {
+  initialCards.forEach((el) => {
+    const cardElement = createCard(el, deleteCard, likeCard, zoomImage);
+    placesContainer.append(cardElement);
+  });
+};
 
 loadInitial(deleteCard, likeCard, zoomImage);
