@@ -99,7 +99,7 @@ const editAvatarFormSubmit = (evt) => {
 
   updateAvatar(avatarLink)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       profileImage.style.backgroundImage = `url(${res.avatar})`;
     })
     .catch((err) => {
@@ -189,8 +189,6 @@ const zoomImage = ({ name, link }) => {
 
 // Like Card
 const likeCard = ({ cardId, btn, counterElement }) => {
-  // btn.disabled = true;
-
   if (btn.classList.contains("card__like-button_is-active")) {
     crudAPI
       .modifyLike("/cards/likes", cardId, "DELETE")
@@ -230,14 +228,6 @@ const likeCard = ({ cardId, btn, counterElement }) => {
 //   e.target.classList.add("card__like-button_is-active");
 // };
 
-function allCards() {
-  const placeListItemsArray = placesContainer.querySelectorAll("li");
-
-  placeListItemsArray.forEach((el) => {
-    console.log(el);
-  });
-}
-
 const showPopUpNewCard = () => {
   clearValidation(newPlaceForm, validationConfig);
   openModal(popUpNewCard);
@@ -254,7 +244,7 @@ const deleteCardHandler = ({ cardId, btnElem }) => {
       btnElem.closest(".card").remove();
     })
     .catch((err) => {
-      console.log(`${err}`);
+      console.error(err);
     });
 };
 
@@ -276,7 +266,7 @@ function handleNewCardFormSubmit(evt) {
   };
 
   createNewCardReq(cardObj.name, cardObj.link).then((res) => {
-    console.log(res);
+    // console.log(res);
     const cardElement = createCard(
       res,
       deleteCardHandler,
@@ -315,7 +305,7 @@ Promise.all([crudAPI.userInfo("/users/me"), crudAPI.getCards("/cards")]).then(
   (res) => {
     const userResult = res[0];
     const cardsResult = res[1];
-    console.log(userResult);
+    // console.log(userResult);
     setProfile(userResult);
 
     cardsResult.forEach((cardElem) => {
