@@ -36,8 +36,12 @@ const checkInputValidity = ({
   inputErrorClass,
   errorClass,
 }) => {
-  if (inputElement.validity.patternMismatch) {
+  if (inputElement.validity.valueMissing) {
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else if (inputElement.validity.typeMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorUrl);
+  } else if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorPattern);
   } else {
     inputElement.setCustomValidity("");
   }
@@ -116,13 +120,9 @@ const enableValidation = ({
   inputErrorClass,
   errorClass,
 }) => {
-  const formList = document.querySelectorAll(formSelector);
+  const formList = Array.from(document.querySelectorAll(formSelector));
 
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (event) => {
-      event.preventDefault();
-    });
-
     setEventListeners({
       formElement,
       inputSelector,

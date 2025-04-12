@@ -49,6 +49,7 @@ const createCard = (el, handleDelete, handleLike, handleZoomImage, meId) => {
   });
 
   cardElement.querySelector(".card__image").src = el.link;
+  cardElement.querySelector(".card__image").alt = el.name;
   cardElement.querySelector(".card__title").textContent = el.name;
 
   const image = cardElement.querySelector(".card__image");

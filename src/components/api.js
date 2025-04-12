@@ -8,9 +8,7 @@ const CONFIG = {
   cohortId: "wff-cohort-35",
 };
 
-const getBasePath = () => {
-  return `${CONFIG.path}/${CONFIG.pathVersion}/${CONFIG.cohortId}`;
-};
+const BASEPATH = `${CONFIG.path}/${CONFIG.pathVersion}/${CONFIG.cohortId}`;
 
 const handlePromiseResponse = (res) => {
   if (res.ok) {
@@ -21,8 +19,7 @@ const handlePromiseResponse = (res) => {
 };
 
 const _createCard = (path, cardObj) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}`, {
+  return fetch(`${BASEPATH}${path}`, {
     method: "POST",
     headers: CONFIG.headers,
     body: JSON.stringify({
@@ -33,24 +30,21 @@ const _createCard = (path, cardObj) => {
 };
 
 const _getData = (path) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}`, {
+  return fetch(`${BASEPATH}${path}`, {
     method: "GET",
     headers: CONFIG.headers,
   }).then(handlePromiseResponse);
 };
 
 const _deleteCard = (path) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}`, {
+  return fetch(`${BASEPATH}${path}`, {
     method: "DELETE",
     headers: CONFIG.headers,
   }).then(handlePromiseResponse);
 };
 
 const _updateUserInfo = (path, userData) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}`, {
+  return fetch(`${BASEPATH}${path}`, {
     method: "PATCH",
     headers: CONFIG.headers,
     body: JSON.stringify({
@@ -61,8 +55,7 @@ const _updateUserInfo = (path, userData) => {
 };
 
 const _userUpdateAvatar = (path, imgLink) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}`, {
+  return fetch(`${BASEPATH}${path}`, {
     method: "PATCH",
     headers: CONFIG.headers,
     body: JSON.stringify({
@@ -72,8 +65,7 @@ const _userUpdateAvatar = (path, imgLink) => {
 };
 
 const _modifyLike = (path, cardId, HTTPMethd) => {
-  const basePath = getBasePath();
-  return fetch(`${basePath}${path}/${cardId}`, {
+  return fetch(`${BASEPATH}${path}/${cardId}`, {
     method: HTTPMethd,
     headers: CONFIG.headers,
   }).then(handlePromiseResponse);

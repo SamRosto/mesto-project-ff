@@ -101,6 +101,7 @@ const editAvatarFormSubmit = (evt) => {
     .then((res) => {
       // console.log(res);
       profileImage.style.backgroundImage = `url(${res.avatar})`;
+      closeAvatarEditForm();
     })
     .catch((err) => {
       console.error(err);
@@ -111,8 +112,6 @@ const editAvatarFormSubmit = (evt) => {
         isLoading: false,
       });
     });
-
-  closeAvatarEditForm();
 };
 
 avatarForm.addEventListener("submit", editAvatarFormSubmit);
@@ -144,6 +143,7 @@ const editProfileFormSubmit = (evt) => {
     .then((res) => {
       profileName.textContent = res.name;
       profileDescription.textContent = res.about;
+      closePopUpEditProfile();
     })
     .catch((err) => {
       console.error(err);
@@ -154,8 +154,6 @@ const editProfileFormSubmit = (evt) => {
         isLoading: false,
       })
     );
-
-  closePopUpEditProfile();
 };
 editProfileForm.addEventListener("submit", editProfileFormSubmit);
 
@@ -229,6 +227,8 @@ const likeCard = ({ cardId, btn, counterElement }) => {
 // };
 
 const showPopUpNewCard = () => {
+  placeName.value = placeName.textContent;
+  placeLink.value = placeLink.textContent;
   clearValidation(newPlaceForm, validationConfig);
   openModal(popUpNewCard);
 };
@@ -265,22 +265,30 @@ function handleNewCardFormSubmit(evt) {
     link: placeLink.value,
   };
 
-  createNewCardReq(cardObj.name, cardObj.link).then((res) => {
-    // console.log(res);
-    const cardElement = createCard(
-      res,
-      deleteCardHandler,
-      likeCard,
-      zoomImage,
-      res.owner["_id"]
-    );
-    placesContainer.prepend(cardElement);
-  });
-
-  placeName.value = "";
-  placeLink.value = "";
-
-  closePopUpNewCard();
+  createNewCardReq(cardObj.name, cardObj.link)
+    .then((res) => {
+      // console.log(res);
+      const cardElement = createCard(
+        res,
+        deleteCardHandler,
+        likeCard,
+        zoomImage,
+        res.owner["_id"]
+      );
+      placesContainer.prepend(cardElement);
+      placeName.value = "";
+      placeLink.value = "";
+      closePopUpNewCard();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      renderLoading({
+        buttonElement: addPlaceBtn,
+        isLoading: false,
+      });
+    });
 }
 
 newPlaceForm.addEventListener("submit", handleNewCardFormSubmit);
@@ -301,8 +309,8 @@ const setProfile = (userObj) => {
   profileImage.style.backgroundImage = `url(${userObj.avatar})`;
 };
 
-Promise.all([crudAPI.userInfo("/users/me"), crudAPI.getCards("/cards")]).then(
-  (res) => {
+Promise.all([crudAPI.userInfo("/users/me"), crudAPI.getCards("/cards")])
+  .then((res) => {
     const userResult = res[0];
     const cardsResult = res[1];
     // console.log(userResult);
@@ -318,5 +326,7 @@ Promise.all([crudAPI.userInfo("/users/me"), crudAPI.getCards("/cards")]).then(
       );
       placesContainer.append(cardElement);
     });
-  }
-);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
