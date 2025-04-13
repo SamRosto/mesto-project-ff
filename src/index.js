@@ -2,7 +2,6 @@ import "./index.css";
 
 import { openModal, closeModal } from "./components/modals";
 import { createCard, deleteCard } from "./components/card";
-import { initialCards } from "./components/cards";
 
 import { crudAPI } from "./components/api";
 import { enableValidation, clearValidation } from "./components/validation";

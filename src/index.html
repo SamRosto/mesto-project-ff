@@ -47,6 +47,7 @@
           maxlength="40"
           pattern="[A-Za-zА-Яа-яЁё]+([\s\-][A-Za-zА-Яа-яЁё]+)*"
           data-error-message="Вы пропустили это поле" 
+          data-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы."
           required>
           <span class="name-input-error popup__input_type_error"></span>
           
@@ -56,6 +57,7 @@
           maxlength="200"
           pattern="[A-Za-zА-Яа-яЁё]+([\s\-][A-Za-zА-Яа-яЁё]+)*"
           data-error-message="Вы пропустили это поле"
+          data-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы."
           required>
           <span class="description-input-error popup__input_type_error"></span>
 
@@ -73,8 +75,10 @@
             name="avatar"
             class="popup__input popup__input_type_url"
             placeholder="Ссылка на картинку"
-            required
             id="avatar-input"
+            data-error-message="Вы пропустили это поле" 
+            data-error-url="Введите адрес сайта."
+            required
           />
           <span class="avatar-input-error popup__input_type_error"></span>
           <button type="submit" class="button popup__button">
@@ -97,6 +101,7 @@
           maxlength="30"
           pattern="[A-Za-zА-Яа-яЁё]+([\s\-][A-Za-zА-Яа-яЁё]+)*"
           data-error-message="Вы пропустили это поле"
+          data-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы."
           required>
           <span class="place-name-input-error popup__input_type_error"></span>
 
