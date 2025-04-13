@@ -11,17 +11,15 @@
 <body class="page">
   <div class="page__content">
     <header class="header page__section">
-      <img src="../images/logo.svg" alt="Логотип проекта масто" class="logo header__logo">
-      <!-- <img src="<%=require('../images/logo.svg')%> alt="Логотип проекта масто" class="logo header__logo"" -->
-      
+      <img src=<%=require("./images/logo.svg")%> alt="Логотип проекта масто" class="logo header__logo" />
     </header>
     <main class="content">
       <section class="profile page__section">
-        <div class="profile__image" style="background-image: url('../images/avatar.jpg');"></div>
+        <div class="profile__image"></div>
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <h1 class="profile__title"></h1>
           <button class="profile__edit-button" type="button"></button>
-          <p class="profile__description">Исследователь океана</p>
+          <p class="profile__description"></p>
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
@@ -98,12 +96,21 @@
           minlength="2"
           maxlength="30"
           pattern="[A-Za-zА-Яа-яЁё]+([\s\-][A-Za-zА-Яа-яЁё]+)*"
-          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+          data-error-message="Вы пропустили это поле"
           required>
           <span class="place-name-input-error popup__input_type_error"></span>
-          <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" id="link-input"required>
+
+          <input type="url" 
+          name="link" 
+          class="popup__input popup__input_type_url" 
+          placeholder="Ссылка на картинку" 
+          id="link-input" 
+          data-error-message="Вы пропустили это поле" 
+          data-error-url="Введите адрес сайта."
+          required >
           <span class="link-input-error popup__input_type_error"></span>
           <button type="submit" class="button popup__button">Сохранить</button>
+
         </form>
       </div>
     </div>

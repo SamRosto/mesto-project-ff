@@ -34,7 +34,8 @@ const createCard = (el, handleDelete, handleLike, handleZoomImage, meId) => {
   }
 
   const likeCardBtn = cardElement.querySelector(".card__like-button");
-  el.likes.forEach((likeId) => {
+  el.likes.forEach((like) => {
+    const likeId = like["_id"];
     if (likeId === meId) {
       likeCardBtn.classList.add("card__like-button_is-active");
     }
